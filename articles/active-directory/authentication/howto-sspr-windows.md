@@ -17,9 +17,9 @@ ms.collection: M365-identity-device-management
 ---
 # Enable Azure Active Directory self-service password reset at the Windows sign-in screen
 
-Self-service password reset (SSPR) gives users in Azure Active Directory (Azure AD) the ability to change or reset their password, with no administrator or help desk involvement. Typically, users open a web browser on another device to access the [SSPR portal](https://aka.ms/sspr). To improve the experience on computers that run Windows 7, 8, 8.1, 10, and 11 you can enable users to reset their password at the Windows sign-in screen.
+Self-service password reset (SSPR) gives users in Azure Active Directory (Azure AD) the ability to change or reset their password, with no administrator or help desk involvement. Typically, users open a web browser on another device to access the [SSPR portal](https://aka.ms/sspr). To improve the experience on computers that run Windows 10 and 11 you can enable users to reset their password at the Windows sign-in screen.
 
-![Example Windows login screens with SSPR link shown](./media/howto-sspr-windows/windows-reset-password.png)
+![image](https://github.com/MicrosoftDocs/azure-docs/assets/101168840/559facd7-cd2e-4402-a21d-9af2cc4f80bb)
 
 > [!IMPORTANT]
 > This tutorial shows an administrator how to enable SSPR for Windows devices in an enterprise.
@@ -140,65 +140,11 @@ In this case, you can use one of the following workarounds:
 - The error **"Something went wrong"** can also occur when anything interrupts connectivity to URL `https://passwordreset.microsoftonline.com/n/passwordreset`. For example, this error can occur when antivirus software runs on the workstation without exclusions for URLs `passwordreset.microsoftonline.com`, `ajax.aspnetcdn.com`, and `ocsp.digicert.com`. Disable this software temporarily to test if the issue is resolved or not.
 
 
-## Windows 7, 8, and 8.1 password reset
-
-To configure a Windows 7, 8, or 8.1 device for SSPR at the sign-in screen, review the following prerequisites and configuration steps.
-
-### Windows 7, 8, and 8.1 prerequisites
-
-- An administrator [must enable Azure AD self-service password reset from the Azure portal](tutorial-enable-sspr.md).
-- Users must register for SSPR before using this feature at [https://aka.ms/ssprsetup](https://aka.ms/ssprsetup)
-    - Not unique to using SSPR from the Windows sign-in screen, all users must provide the authentication contact information before they can reset their password.
-- Network proxy requirements:
-    - Port 443 to `passwordreset.microsoftonline.com`
-- Patched Windows 7 or Windows 8.1 Operating System.
-- TLS 1.2 enabled using the guidance found in [Transport Layer Security (TLS) registry settings](/windows-server/security/tls/tls-registry-settings#tls-12).
-- If more than one 3rd party credential provider is enabled on your machine, users see more than one user profile on the login screen.
-
-> [!WARNING]
-> TLS 1.2 must be enabled, not just set to auto negotiate.
-
-### Install
-
-For Windows 7, 8, and 8.1, a small component must be installed on the machine to enable SSPR at the sign-in screen. To install this SSPR component, complete the following steps:
-
-1. Download the appropriate installer for the version of Windows you would like to enable.
-
-    The software installer is available on the Microsoft download center at [https://aka.ms/sspraddin](https://aka.ms/sspraddin)
-1. Sign in to the machine where you would like to install, and run the installer.
-1. After installation, a reboot is highly recommended.
-1. After the reboot, at the sign-in screen choose a user and select "Forgot password?" to initiate the password reset workflow.
-1. Complete the workflow following the onscreen steps to reset your password.
-
-![Example Windows 7 clicked "Forgot password?" SSPR flow](media/howto-sspr-windows/windows-7-sspr.png)
-
-#### Silent installation
-
-The SSPR component can be installed or uninstalled without prompts using the following commands:
-
-- For silent install, use the command "msiexec /i SsprWindowsLogon.PROD.msi /qn"
-- For silent uninstall, use the command "msiexec /x SsprWindowsLogon.PROD.msi /qn"
-
-#### Troubleshooting Windows 7, 8, and 8.1 password reset
-
-If you have problems with using SSPR from the Windows sign-in screen, events are logged both on the machine and in Azure AD. Azure AD events include information about the IP address and ClientType where the password reset occurred, as shown in the following example output:
-
-![Example Windows 7 password reset in the Azure AD Audit log](media/howto-sspr-windows/windows-7-sspr-azure-ad-audit-log.png)
-
-If additional logging is required, a registry key on the machine can be changed to enable verbose logging. Enable verbose logging for troubleshooting purposes only using the following registry key value:
-
-```cmd
-HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\Credential Providers\{86D2F0AC-2171-46CF-9998-4E33B3D7FD4F}
-```
-
-- To enable verbose logging, create a `REG_DWORD: "EnableLogging"`, and set it to 1.
-- To disable verbose logging, change the `REG_DWORD: "EnableLogging"` to 0.
-
 ## What do users see
 
 With SSPR configured for your Windows devices, what changes for the user? How do they know that they can reset their password at the login screen? The following example screenshots show the additional options for a user to reset their password using SSPR:
 
-![Example Windows 7 and 10 login screens with SSPR link shown](./media/howto-sspr-windows/windows-reset-password.png)
+![image](https://github.com/MicrosoftDocs/azure-docs/assets/101168840/a20c53b7-f070-4ed3-91f2-9af167a6a04c)
 
 When users attempt to sign in, they see a **Reset password** or **Forgot password** link that opens the self-service password reset experience at the login screen. This functionality allows users to reset their password without having to use another device to access a web browser.
 
